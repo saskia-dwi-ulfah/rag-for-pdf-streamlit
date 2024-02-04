@@ -33,7 +33,7 @@ if uploaded_file is not None:
         shutil.copyfileobj(uploaded_file, tmpfile)
         tmpfile_path = tmpfile.name
 
-    loader = PyPDFLoader(tmpfile_path, extract_images = True)
+    loader = PyPDFLoader(tmpfile_path, extract_images = False) # error when load rapidocr-onnxruntime
     docs = loader.load()
 
     # 2. Split
