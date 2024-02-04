@@ -31,8 +31,8 @@ if uploaded_file is not None:
         file.write(uploaded_file.getvalue())
         file_name = uploaded_file.name
 
-    loader = PyPDFLoader(uploaded_file.name, extract_images = True)
-    docs = loader.load(uploaded_file)
+    loader = PyPDFLoader(uploaded_file, extract_images = True)
+    docs = loader.load()
 
     # 2. Split
     text_splitter = RecursiveCharacterTextSplitter(chunk_size = 1000, chunk_overlap = 200)
