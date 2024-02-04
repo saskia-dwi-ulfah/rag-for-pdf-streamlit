@@ -56,27 +56,24 @@ if uploaded_file is not None:
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
-
-    with st.container():
-      # Display chat messages from history on app rerun
-      for message in st.session_state.messages:
-         with st.chat_message(message["role"]):
+    
+    # Display chat messages from history on app rerun
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
             st.markdown(message["content"])
-   
-       # Accept user input
-      if prompt := st.chat_input("Ask the PDF"):
-         # Add user message to chat history
-         st.session_state.messages.append({"role": "user", "content": prompt})
-   
-         # Display user message in chat message container
-         with st.chat_message("user"):
+
+    # Accept user input
+    if prompt := st.chat_input("Ask the PDF"):
+        # Add user message to chat history
+        st.session_state.messages.append({"role": "user", "content": prompt})
+
+        # Display user message in chat message container
+        with st.chat_message("user"):
             st.markdown(prompt)
-   
-           # Display assistant response in chat message container
-         with st.chat_message("assistant"):
+
+        # Display assistant response in chat message container
+        with st.chat_message("assistant"):
             response = rag_chain.invoke(prompt)
             st.markdown(response)
-   
-         st.session_state.messages.append({"role": "assistant", "content": response})
 
-
+        st.session_state.messages.append({"role": "assistant", "content": response})
