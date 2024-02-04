@@ -31,7 +31,7 @@ if uploaded_file is not None:
         file.write(uploaded_file.getvalue())
         file_name = uploaded_file.name
 
-    loader = PyPDFLoader(extract_images = True)
+    loader = PyPDFLoader(uploaded_file.name, extract_images = True)
     docs = loader.load(uploaded_file)
 
     # 2. Split
