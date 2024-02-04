@@ -19,7 +19,6 @@ with st.sidebar:
    st.button("How to Use The App", on_click = display_how_to)
 
    api_key = st.text_input("Input your Open AI API key")
-   os.environ["OPENAI_API_KEY"] = api_key
 
    # 1. Load file
    uploaded_file = st.file_uploader("Upload your PDF file", type = ["pdf"])
@@ -42,12 +41,12 @@ if uploaded_file is not None:
 
     # 3. Save
     vectorstore = Chroma.from_documents(documents = splits, 
-                                embedding = OpenAIEmbeddings())
+                                embedding = OpenAIEmbeddings(openai_api_key = api_key))
 
     # 4. Retrieve and generate 
     retriever = vectorstore.as_retriever()
     custom_rag_prompt = PromptTemplate.from_template(template)
-    llm = ChatOpenAI(model_name = 'gpt-3.5-turbo', temperature = 0)
+    llm = ChatOpenAI(model_name = 'gpt-3.5-turbo', temperature = 0, openai_api_key = api_key)
     rag_chain = (
         {"context": retriever | format_docs, "question": RunnablePassthrough()}
         | custom_rag_prompt
