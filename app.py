@@ -1,4 +1,6 @@
 import os
+import shutil
+import tempfile
 import streamlit as st
 
 from utils.function import format_docs, display_how_to
@@ -26,12 +28,12 @@ st.title("Ask The PDF 📑🔮🤔")
 st.text("Powered by GPT 3.5 Turbo")
 
 if uploaded_file is not None: 
-    temp_file = "./temporary.pdf"
-    with open(temp_file, "wb") as file:
-        file.write(uploaded_file.getvalue())
-        file_name = uploaded_file.name
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmpfile:
+        # Copy the uploaded file to the temporary file
+        shutil.copyfileobj(uploaded_file, tmpfile)
+        tmpfile_path = tmpfile.name
 
-    loader = PyPDFLoader(uploaded_file, extract_images = True)
+    loader = PyPDFLoader(tmpfile_path, extract_images = True)
     docs = loader.load()
 
     # 2. Split
