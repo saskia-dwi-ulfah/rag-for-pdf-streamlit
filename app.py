@@ -24,7 +24,7 @@ with st.sidebar:
    uploaded_file = st.file_uploader("Upload your PDF file", type = ["pdf"])
 
 st.title("Ask The PDF 📑🔮🤔")
-st.text("Powered by GPT 3.5 Turbo")
+st.text("Powered by Open AI GPT 4")
 
 if uploaded_file is not None: 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmpfile:
@@ -46,7 +46,7 @@ if uploaded_file is not None:
     # 4. Retrieve and generate 
     retriever = vectorstore.as_retriever()
     custom_rag_prompt = PromptTemplate.from_template(template)
-    llm = ChatOpenAI(model_name = 'gpt-3.5-turbo', temperature = 0, openai_api_key = api_key)
+    llm = ChatOpenAI(model_name = 'gpt-4', temperature = 0, openai_api_key = api_key)
     rag_chain = (
         {"context": retriever | format_docs, "question": RunnablePassthrough()}
         | custom_rag_prompt
