@@ -24,7 +24,7 @@ with st.sidebar:
    uploaded_file = st.file_uploader("Upload your PDF file", type = ["pdf"])
 
 st.title("Ask The PDF 📑🔮🤔")
-st.text("Powered by Open AI GPT 3.5 Turbo")
+st.caption("Powered by Open AI GPT 3.5 Turbo")
 
 if uploaded_file is not None: 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmpfile:
